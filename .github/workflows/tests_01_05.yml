@@ -1,0 +1,37 @@
+name: Nand2Tetris Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Java (if necessary)
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Determine changed files
+      id: changed-files
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "projects/\(01\|02\|03\|04\|05\)/.*\.hdl")
+        if [ -n "$CHANGED_FILES" ]; then
+          echo "::set-output name=files::$CHANGED_FILES"
+        else
+          echo "No HDL files changed."
+          exit 1
+        fi
+
+    - name: Run Tests
+      run: |
+        for file in ${{ steps.changed-files.outputs.files }}; do
+          /tools/HardwareSimulator.sh "$(echo "$file" | sed 's/\.hdl/.tst/')"
+        done
