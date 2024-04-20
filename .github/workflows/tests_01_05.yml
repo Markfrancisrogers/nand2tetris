@@ -3,7 +3,7 @@ name: Nand2Tetris Test
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   test:
