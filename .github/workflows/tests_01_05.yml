@@ -1,9 +1,6 @@
 name: Nand2Tetris Test
 
-on:
-  push:
-    branches:
-      - '*'
+on: push
 
 jobs:
   test:
