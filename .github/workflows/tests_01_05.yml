@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Debug event data
+      run: |
+        echo "github.event.before: ${{ github.event.before }}"
+        echo "github.sha: ${{ github.sha }}"
+
     - name: Checkout code
       uses: actions/checkout@v2
 
