@@ -5,7 +5,7 @@ CHIP RAM8 {
     PARTS:
     //This DMux distributes the load bit/flag to a single register
     DMux8Way(in=load,sel=address[0..2],a=dma,b=dmb,c=dmc,d=dmd,e=dme,f=dmf,g=dmg,h=dmh);
-    //These Registers receive 16bit data from the chips input 
+    //These Registers receive 16bit data from the chips input
     Register(in=in[0..15],load=dma,out=ma);
     Register(in=in[0..15],load=dmb,out=mb);
     Register(in=in[0..15],load=dmc,out=mc);
